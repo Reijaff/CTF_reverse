@@ -1,0 +1,2 @@
+python script.py
+p4{I_really_hope_you_automated_this_somehow_otherwise_it_might_be_a_bit_frustrating_to_do_this_manually}

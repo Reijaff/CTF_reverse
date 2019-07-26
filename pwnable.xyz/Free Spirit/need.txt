@@ -1,0 +1,11 @@
+0x400A3E -- win()
+
+
+Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+    FORTIFY:  Enabled
+
+0x00007ffc8b5f46b8 

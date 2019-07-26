@@ -1,0 +1,35 @@
+FLAG{u_cheater_used_a_debugger} --flag
+
+Input: 
+-5404319552844595200 0 -6
+184549376 0 -5
+
+Howto find this:
+
+inputs:
+rax -> v3
+rcx -> v1
+rdx -> v3
+
+need to write 0xb000000b5 to rbp-0xa0 -15
+
+rbp + rax * 8 -0x98 = rdx is writeable with rcx + rdx
+
+--> rbp + rax * 8 - 0x98 = rbp - 0xa0
+
+problem: 6 is added to rax. therefore we cannot overwrite it directly:
+
+--> rbp + (rax+6) * 8 - 0x98 = rbp - 0xa0
+
+rax +6 = 7/8
+
+--> rax = -5 for upper (assuming 7/8 == 1)
+--> rax = -6 for lower (assuming 7/8 == 0)
+
+but we can write in the first round the upper 6 bytes and in the second round the lower 2 bytes
+
+--->  first write 0xb000000 to upper bytes as lower value using rax = -5 (easy since we need to write this at the end of the integer)
+
+---> second write 0xb5 to lower bytes as hugher value using rax = -6 (hard, since we need to write at the beginning of the interger) --> write  B500000000000000 which is as a singned int interpreted --> write -5404319552844595200
+
+

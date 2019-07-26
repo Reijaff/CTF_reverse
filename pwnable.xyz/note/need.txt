@@ -1,0 +1,15 @@
+0x40093C -- win()
+0x40094F -- read_int32()
+0x40099E -- print_menu()
+0x4009B6 -- edit_note()
+0x400A38 -- edit_desc()
+0x400A86 -- main()
+
+0x400ADB loc_400ADB -- leave;ret;
+
+0x601248 -- got.plt read() -- in got.plt section we have a pointer to read function
+put address of read to buf so the desc can rewrite teh pointer
+ 1) note > 'A'*32 + address of read
+2)address of win
+
+now whenever we call read function win() executes
