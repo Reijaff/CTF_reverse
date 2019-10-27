@@ -1,7 +1,0 @@
-1.username: hacktheplanet
-cathhtkeepaln
-(do not try to understand the code
-use paper and pencil to compare given username to something like 123456789abcd and set characters on their places)
-2.time:365
-
-

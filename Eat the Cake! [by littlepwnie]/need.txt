@@ -1,4 +1,0 @@
-c++ program
-decompressed py upx -d 
-disabling aslr
-h@ckth3parad1$E
